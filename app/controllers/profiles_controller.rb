@@ -13,6 +13,7 @@ class ProfilesController < ApplicationController
 
   def show
     @user = User.find_by! username: params[:username]
+    @friend_requests = FriendRequest.pending.from_user(@user)
   end
 
   def add_friend
@@ -20,4 +21,16 @@ class ProfilesController < ApplicationController
 
     redirect_to profiles_url
   end
+
+  def accept_friend
+   Friendship.find(params[:id]).update(status: FriendRequest::ACCEPTED)
+
+   redirect_to profile_path(current_user)
+  end
+
+  def decline_friend
+   Friendship.find(params[:id]).update(status: FriendRequest::DECLINED)
+
+   redirect_to profile_path(current_user)
+ end
 end
