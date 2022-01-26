@@ -34,4 +34,13 @@
     <p>There are no friend requests.</p>
   <% end %>
 
+  <h3>@user.username %>'s friends</h3>
+  <% if @user.friends.any? %>
+    <% @user.friends.each do |user| %>
+      <%= link_to user.username, profile_path(user.id) %>
+    <% end %>
+  <% else %>
+    <p>There are no friends.</p>
+  <% end %>
+
 </div>
