@@ -11,4 +11,12 @@ class User < ApplicationRecord
   has_many :photos, dependent: :delete_all
   has_many :comments, dependent: :delete_all
   has_many :friend_requests, dependent: :delete_all
+
+  def friends
+    FriendRequest.accepted.from_user(self)
+  end
+
+  def already_friends?(user)
+    self.friends.where(friend: user)
+  end
 end

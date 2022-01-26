@@ -6,4 +6,8 @@ class FriendRequest < ApplicationRecord
   PENDING = 0
   ACCEPTED = 1
   DECLINED = 2
+
+  scope :pending, -> { where(status: PENDING)}
+  scope :accepted, -> { where(status: ACCEPTED)}
+  scope :from_user, -> (user) { where("user_id = ? OR friend_id = ?", user.id, user.id) }
 end

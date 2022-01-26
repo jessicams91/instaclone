@@ -14,4 +14,10 @@ class ProfilesController < ApplicationController
   def show
     @user = User.find_by! username: params[:username]
   end
+
+  def add_friend
+    FriendRequest.create(friend: params[:id], user: current_user, status: FriendRequest::PENDING)
+
+    redirect_to profiles_url
+  end
 end

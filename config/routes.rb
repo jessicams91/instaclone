@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :profiles, only: [:index]
   get 'profiles/:username', to: 'profiles#show', as: :profile
+  post '/profiles/:id/add_friend', to: 'profiles#add_friend', as: :add_friend
 
   resources :photos, only: [:index, :show, :new, :create, :destroy]
 
